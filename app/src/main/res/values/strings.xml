@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Quiz Droid</string>
+    <string name="begin_button">Begin</string>
+    <string name="submit_button">Submit</string>
+    <string name="math_description">Math Description</string>
+    <string name="physics_description">Physics Description</string>
+    <string name="marvel_description">Marvel Description</string>
+    <string name="soccer_description">Soccer Description</string>
+    <string name="comp_sci_description">Computer Science Description</string>
+    <string name="got_description">Game Of Thrones Description</string>
+    <string name="twd_description">The Walking Dead Description</string>
+    <string name="uw_description">University of Washington Description</string>
+
+    <string name="math_q1">What is 2 + 2?</string>
+    <string name="math_q1_a1">22</string>
+    <string name="math_q1_a2">-4</string>
+    <string name="math_q1_a3c">4</string>
+    <string name="math_q1_a4">5</string>
+
+    <string name="physics_q1">What is Force equal to?</string>
+    <string name="physics_q1_a1">mc^2</string>
+    <string name="physics_q1_a2c">m*a</string>
+    <string name="physics_q1_a3">K</string>
+    <string name="physics_q1_a4">Distance * time</string>
+
+    <string name="marvel_q1">Who is NOT a hero in the Avengers?</string>
+    <string name="marvel_q1_a1">Iron Man</string>
+    <string name="marvel_q1_a2c">Batman</string>
+    <string name="marvel_q1_a3">Captain America</string>
+    <string name="marvel_q1_a4">Hulk</string>
+
+    <string name="soccer_q1">Which country won the 2014 World Cup?</string>
+    <string name="soccer_q1_a1">Brazil</string>
+    <string name="soccer_q1_a2">Argentina</string>
+    <string name="soccer_q1_a3">United States</string>
+    <string name="soccer_q1_a4c">Germany</string>
+
+    <string name="got_q1">What are the mysterious, magical evil creatures called?</string>
+    <string name="twd_q1">What is Carl missing?</string>
+    <string name="cs_q1">What quality does a Stack have?</string>
+    <string name="uw_q1">What is the best major at UW?</string>
+    <string name="title_activity_answer">AnswerActivity</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="title_activity_quiz">Quiz</string>
+</resources>
