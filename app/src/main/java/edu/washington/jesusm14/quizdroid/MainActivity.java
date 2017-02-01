@@ -112,11 +112,10 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemValue = (String) listView.getItemAtPosition(position);
-                Intent next = new Intent(MainActivity.this, QuestionActivity.class);
+                Intent next = new Intent(MainActivity.this, Main2Activity.class);
                 if (itemValue.equals(topics[0])) {
                     next.putExtra("questions", mathQuestions);
                     bundle.putSerializable("answers", mathAnswers);
-
                     next.putExtra("correct", mathCorrectAnswers);
                     next.putExtra("description", getString(R.string.math_description));
                 } else if (itemValue.equals(topics[1])) {
@@ -136,7 +135,6 @@ public class MainActivity extends Activity {
                     next.putExtra("description", getString(R.string.soccer_description));
                 }
                 next.putExtras(bundle);
-                next.putExtra("questionnumber", (int) 0);
                 startActivity(next);
             }
 

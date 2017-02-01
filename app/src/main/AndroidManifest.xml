@@ -28,12 +28,8 @@
             android:value="@integer/google_play_services_version"/>
 
         <activity
-            android:name=".QuestionActivity"
-            android:label="@string/title_activity_question">
-        </activity>
-        <activity
-            android:name=".Quiz"
-            android:label="@string/title_activity_quiz">
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2">
         </activity>
     </application>
 
