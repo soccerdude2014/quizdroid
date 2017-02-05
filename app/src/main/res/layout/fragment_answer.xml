@@ -7,35 +7,35 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Result"
-        android:layout_gravity="center"
+        android:gravity="center_horizontal"
         android:textSize="35dp"
-        android:layout_marginBottom="20dp"/>
+        />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center_horizontal"
         android:text="Your Answer:"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="50dp"
         android:id="@+id/useranswer"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:text="What the answer is:"
         android:id="@+id/actualanswer"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginTop="80dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="You have X correct out of X"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="120dp"
         android:id="@+id/score"/>
 
 

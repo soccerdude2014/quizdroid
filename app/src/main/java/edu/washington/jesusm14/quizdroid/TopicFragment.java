@@ -71,13 +71,7 @@ public class TopicFragment extends Fragment {
         description.setText(this.description);
         TextView numberOfQuestions = (TextView) view.findViewById(R.id.numberofqs);
         numberOfQuestions.setText("There are " + this.numqs + " questions in this quiz");
-        Button button = (Button) view.findViewById(R.id.submit);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         return view;
     }
 

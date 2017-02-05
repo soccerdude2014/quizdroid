@@ -45,6 +45,9 @@ public class Main2Activity extends Activity implements TopicFragment.OnFragmentI
         button = (Button) findViewById(R.id.mainbutton);
         button.setText("Begin");
         current = TopicFragment.newInstance(prevDescription, questions.length);
+        FragmentTransaction tx = getFragmentManager().beginTransaction();
+        tx.replace(R.id.fragment_placeholder, current);
+        tx.commit();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,12 +74,15 @@ public class Main2Activity extends Activity implements TopicFragment.OnFragmentI
                     Intent i = new Intent(Main2Activity.this, MainActivity.class);
                     startActivity(i);
                 }
+                FragmentTransaction tx = getFragmentManager().beginTransaction();
+                tx.replace(R.id.fragment_placeholder, current);
+                tx.commit();
             }
         });
 
-        FragmentTransaction tx = getFragmentManager().beginTransaction();
+       /* FragmentTransaction tx = getFragmentManager().beginTransaction();
         tx.replace(R.id.fragment_placeholder, current);
-        tx.commit();
+        tx.commit();*/
 
 
 

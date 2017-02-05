@@ -35,7 +35,8 @@ public class QuestionFragment extends Fragment {
     private String selectedText;
     private RadioGroup choices;
     private View view;
-    private RadioButton selection;
+    private View selection;
+    private RadioButton selectedButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -93,8 +94,10 @@ public class QuestionFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int id) {
                 int selectedInt = choices.getCheckedRadioButtonId();
                 passAnswerSelected(true);
-                selection = (RadioButton) view.findViewById(selectedInt);
-                selectedText = (String) selection.getText();
+                selection = choices.findViewById(selectedInt);
+                int radioId = choices.indexOfChild(selection);
+                selectedButton = (RadioButton) choices.getChildAt(radioId);
+                selectedText = (String) selectedButton.getText();
                 passGivenAnswer(selectedText);
                 if(selectedText.equals(correct)) {
                     passAnswerCorrect(true);

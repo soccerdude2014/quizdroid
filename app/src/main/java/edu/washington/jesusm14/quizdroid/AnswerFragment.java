@@ -77,8 +77,8 @@ public class AnswerFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_answer, container, false);
         TextView userAnswer = (TextView) view.findViewById(R.id.useranswer);
         userAnswer.setText("Your Answer: " + givenAnswer);
-        TextView actualAnswer = (TextView) view.findViewById(R.id.actualanswer);
-        actualAnswer.setText("Actual Answer: " + actualAnswer);
+        TextView actualAnswerText = (TextView) view.findViewById(R.id.actualanswer);
+        actualAnswerText.setText("Actual Answer: " + actualAnswer);
         TextView scoreView = (TextView) view.findViewById(R.id.score);
         scoreView.setText("You have " + score + " correct out of " + total);
         return view;
