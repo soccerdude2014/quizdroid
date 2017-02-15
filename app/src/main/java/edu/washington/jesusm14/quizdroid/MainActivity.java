@@ -20,23 +20,22 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainActivity extends Activity {
 
-    private String[] topics = new String[]{
-            "Math", "Physics", "Marvel Super Heros", "Soccer"
-    };
+    private String[] topics;
     private String[] mathQuestions;
     private String[][] mathAnswers;
-    private String[] mathCorrectAnswers;
+    private int[] mathCorrectAnswers;
     private String[] physicsQuestions;
     private String[][] physicsAnswers;
-    private String[] physicsCorrectAnswers;
+    private int[] physicsCorrectAnswers;
     private String[] marvelQuestions;
     private String[][] marvelAnswers;
-    private String[] marvelCorrectAnswers;
+    private int[] marvelCorrectAnswers;
     private String[] soccerQuestions;
     private String[][] soccerAnswers;
-    private String[] soccerCorrectAnswers;
+    private int[] soccerCorrectAnswers;
     private ListView listView;
-    private Bundle bundle;
+    //private Bundle bundle;
+    private QuizApp app;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -47,59 +46,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        app = QuizApp.getQuizApp();
+        topics = app.getRepository().getTopics();
 
-        mathQuestions = new String[]{
-                getString(R.string.math_q1)
-        };
 
-        mathAnswers = new String[][]{
-                {getString(R.string.math_q1_a1), getString(R.string.math_q1_a2),
-                        getString(R.string.math_q1_a3c), getString(R.string.math_q1_a4)}
-        };
-
-        mathCorrectAnswers = new String[]{
-                getString(R.string.math_q1_a3c)
-        };
-
-        physicsQuestions = new String[]{
-                getString(R.string.physics_q1)
-        };
-
-        physicsAnswers = new String[][]{
-                {getString(R.string.physics_q1_a1), getString(R.string.physics_q1_a2c),
-                        getString(R.string.physics_q1_a3), getString(R.string.physics_q1_a4)}
-        };
-
-        physicsCorrectAnswers = new String[]{
-                getString(R.string.physics_q1_a2c)
-        };
-
-        marvelQuestions = new String[]{
-                getString(R.string.marvel_q1)
-        };
-        marvelAnswers = new String[][]{
-                {getString(R.string.marvel_q1_a1), getString(R.string.marvel_q1_a2c),
-                        getString(R.string.marvel_q1_a3), getString(R.string.marvel_q1_a4)}
-        };
-
-        marvelCorrectAnswers = new String[]{
-                getString(R.string.physics_q1_a2c)
-        };
-
-        soccerQuestions = new String[]{
-                getString(R.string.soccer_q1)
-        };
-
-        soccerAnswers = new String[][]{
-                {getString(R.string.soccer_q1_a1), getString(R.string.soccer_q1_a2),
-                        getString(R.string.soccer_q1_a3), getString(R.string.soccer_q1_a4c)}
-        };
-
-        soccerCorrectAnswers = new String[]{
-                getString(R.string.soccer_q1_a4c)
-        };
-
-        bundle = new Bundle();
+        //bundle = new Bundle();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, topics);
 
@@ -114,27 +65,35 @@ public class MainActivity extends Activity {
                 String itemValue = (String) listView.getItemAtPosition(position);
                 Intent next = new Intent(MainActivity.this, Main2Activity.class);
                 if (itemValue.equals(topics[0])) {
+                    app.setCurrentTopic(app.getRepository().getMathTopic());
+                    /*
                     next.putExtra("questions", mathQuestions);
                     bundle.putSerializable("answers", mathAnswers);
                     next.putExtra("correct", mathCorrectAnswers);
-                    next.putExtra("description", getString(R.string.math_description));
+                    next.putExtra("description", getString(R.string.math_description));*/
                 } else if (itemValue.equals(topics[1])) {
+                    app.setCurrentTopic(app.getRepository().getPhysicsTopic());
+                    /*
                     next.putExtra("questions", physicsQuestions);
                     bundle.putSerializable("answers", physicsAnswers);
                     next.putExtra("correct", physicsCorrectAnswers);
-                    next.putExtra("description", getString(R.string.physics_description));
+                    next.putExtra("description", getString(R.string.physics_description)); */
                 } else if (itemValue.equals(topics[2])) {
+                    app.setCurrentTopic(app.getRepository().getMarvelTopic());
+                    /*
                     next.putExtra("questions", marvelQuestions);
                     bundle.putSerializable("answers", marvelAnswers);
                     next.putExtra("correct", marvelCorrectAnswers);
-                    next.putExtra("description", getString(R.string.marvel_description));
+                    next.putExtra("description", getString(R.string.marvel_description)); */
                 } else if (itemValue.equals(topics[3])) {
+                    app.setCurrentTopic(app.getRepository().getSoccerTopic());
+                    /*
                     next.putExtra("questions", soccerQuestions);
                     bundle.putSerializable("answers", soccerAnswers);
                     next.putExtra("correct", soccerCorrectAnswers);
-                    next.putExtra("description", getString(R.string.soccer_description));
+                    next.putExtra("description", getString(R.string.soccer_description)); */
                 }
-                next.putExtras(bundle);
+                //next.putExtras(bundle);
                 startActivity(next);
             }
 

@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class Main2Activity extends Activity implements TopicFragment.OnFragmentInteractionListener, QuestionFragment.OnFragmentInteractionListener,
                                                     AnswerFragment.OnFragmentInteractionListener {
     private Intent prev;
-    private String[] questions;
+    private Question[] questions;
     private String[][] answers;
     private String[] correct;
     private String prevDescription;
@@ -26,25 +26,28 @@ public class Main2Activity extends Activity implements TopicFragment.OnFragmentI
     private boolean correctAnswer;
     private boolean checkedAnswer;
     private int score;
-    private String givenAnswerString;
+    private int givenAnswerInt;
     private Button button;
+    private QuizApp app;
+    private Topic topic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
+        app = QuizApp.getQuizApp();
+        topic = app.getCurrentTopic();
         questionNumber = 0;
         prev = getIntent();
-        questions = prev.getStringArrayExtra("questions");
-        prevDescription = prev.getStringExtra("description");
-        correct = prev.getStringArrayExtra("correct");
-        bundle = prev.getExtras();
-        answers = (String[][]) bundle.getSerializable("answers");
+        questions = topic.getCollection();
+        //prevDescription = prev.getStringExtra("description");
+        //correct = prev.getStringArrayExtra("correct");
+        //bundle = prev.getExtras();
+
 
         button = (Button) findViewById(R.id.mainbutton);
         button.setText("Begin");
-        current = TopicFragment.newInstance(prevDescription, questions.length);
+        current = TopicFragment.newInstance(topic.getLongDescription(), topic.getCollection().length);
         FragmentTransaction tx = getFragmentManager().beginTransaction();
         tx.replace(R.id.fragment_placeholder, current);
         tx.commit();
@@ -52,14 +55,14 @@ public class Main2Activity extends Activity implements TopicFragment.OnFragmentI
             @Override
             public void onClick(View v) {
                 if(button.getText().toString().equals("Begin")) {
-                    current = QuestionFragment.newInstance(questions[questionNumber], answers[questionNumber], correct[questionNumber]);
+                    current = QuestionFragment.newInstance(questions[questionNumber].getQuestion(), questions[questionNumber].getAnswers(), questions[questionNumber].getCorrectAnswer());
                     button.setText("Submit");
                 } else if(button.getText().toString().equals("Submit")) {
                     if(checkedAnswer) {
                         if(correctAnswer) {
                             score++;
                         }
-                        current = AnswerFragment.newInstance(givenAnswerString, correct[questionNumber], score, questions.length);
+                        current = AnswerFragment.newInstance(questions[questionNumber].getAnswers()[givenAnswerInt], questions[questionNumber].getAnswers()[questions[questionNumber].getCorrectAnswer()], score, questions.length);
                         questionNumber++;
                         if(questionNumber == questions.length) {
                             button.setText("Finish");
@@ -68,7 +71,7 @@ public class Main2Activity extends Activity implements TopicFragment.OnFragmentI
                         }
                     }
                 } else if(button.getText().toString().equals("Next")) {
-                    current = QuestionFragment.newInstance(questions[questionNumber], answers[questionNumber], correct[questionNumber]);
+                    current = QuestionFragment.newInstance(questions[questionNumber].getQuestion(), questions[questionNumber].getAnswers(), questions[questionNumber].getCorrectAnswer());
                     button.setText("Submit");
                 } else {
                     Intent i = new Intent(Main2Activity.this, MainActivity.class);
@@ -100,7 +103,7 @@ public class Main2Activity extends Activity implements TopicFragment.OnFragmentI
         this.checkedAnswer = data;
     }
 
-    public void givenAnswer(String data) {
-        this.givenAnswerString = data;
+    public void givenAnswer(int data) {
+        this.givenAnswerInt = data;
     }
 }

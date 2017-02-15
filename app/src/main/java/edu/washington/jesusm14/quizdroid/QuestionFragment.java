@@ -31,12 +31,12 @@ public class QuestionFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String questions;
     private String[] answers;
-    private String correct;
-    private String selectedText;
+    private int correct;
+   // private String selectedText;
     private RadioGroup choices;
     private View view;
     private View selection;
-    private RadioButton selectedButton;
+   // private RadioButton selectedButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -53,12 +53,12 @@ public class QuestionFragment extends Fragment {
      * @return A new instance of fragment QuestionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static QuestionFragment newInstance(String question, String[] answers, String correct) {
+    public static QuestionFragment newInstance(String question, String[] answers, int correct) {
         QuestionFragment fragment = new QuestionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, question);
         args.putStringArray(ARG_PARAM2, answers);
-        args.putString(ARG_PARAM3, correct);
+        args.putInt(ARG_PARAM3, correct);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,7 +69,7 @@ public class QuestionFragment extends Fragment {
         if (getArguments() != null) {
             questions = getArguments().getString(ARG_PARAM1);
             answers = getArguments().getStringArray(ARG_PARAM2);
-            correct = getArguments().getString(ARG_PARAM3);
+            correct = getArguments().getInt(ARG_PARAM3);
         }
     }
 
@@ -96,10 +96,10 @@ public class QuestionFragment extends Fragment {
                 passAnswerSelected(true);
                 selection = choices.findViewById(selectedInt);
                 int radioId = choices.indexOfChild(selection);
-                selectedButton = (RadioButton) choices.getChildAt(radioId);
-                selectedText = (String) selectedButton.getText();
-                passGivenAnswer(selectedText);
-                if(selectedText.equals(correct)) {
+                //selectedButton = (RadioButton) choices.getChildAt(radioId);
+                //selectedText = (String) selectedButton.getText();
+                passGivenAnswer(radioId);
+                if(radioId == correct) {
                     passAnswerCorrect(true);
                 } else {
                     passAnswerCorrect(false);
@@ -118,7 +118,7 @@ public class QuestionFragment extends Fragment {
         mListener.isAnswerCorrect(data);
     }
 
-    public void passGivenAnswer(String data) {
+    public void passGivenAnswer(int data) {
         mListener.givenAnswer(data);
     }
 
@@ -161,7 +161,7 @@ public class QuestionFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
         void isAnswerChecked(boolean result);
         void isAnswerCorrect(boolean result);
-        void givenAnswer(String given);
+        void givenAnswer(int given);
     }
 }
 
