@@ -2,8 +2,10 @@ package edu.washington.jesusm14.quizdroid;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
@@ -106,4 +108,7 @@ public class Main2Activity extends Activity implements TopicFragment.OnFragmentI
     public void givenAnswer(int data) {
         this.givenAnswerInt = data;
     }
+
+
+
 }

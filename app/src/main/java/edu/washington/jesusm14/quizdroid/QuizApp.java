@@ -1,6 +1,7 @@
 package edu.washington.jesusm14.quizdroid;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -11,7 +12,9 @@ public class QuizApp extends Application {
 
     private Topic current;
     private static QuizApp instance = new QuizApp();
-
+    private static Context contextInstance;
+    private static int interval;
+    private static String url;
     public static QuizApp getQuizApp() {
         return instance;
     }
@@ -19,6 +22,14 @@ public class QuizApp extends Application {
     public TopicRepository getRepository() {
 
         return TopicRepository.getInstance();
+    }
+
+    public static Context getContext() {
+        return contextInstance;
+    }
+
+    public static void setContext(Context context) {
+        contextInstance = context;
     }
 
     @Override
@@ -33,5 +44,21 @@ public class QuizApp extends Application {
 
     public Topic getCurrentTopic() {
         return this.current;
+    }
+
+    public static int getInterval() {
+        return interval;
+    }
+
+    public static void setInterval(int interval) {
+        interval = interval;
+    }
+
+    public static String getUrl() {
+        return "http://tednewardsandbox.site44.com/questions.json";
+    }
+
+    public static void setUrl(String givenUrl) {
+        url = givenUrl;
     }
 }

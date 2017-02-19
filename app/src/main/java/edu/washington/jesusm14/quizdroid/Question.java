@@ -14,6 +14,10 @@ public class Question {
         this.answers = answer;
         this.correctAnswer = correctAnswer;
     }
+
+    public Question() {
+
+    }
     public String getQuestion() {
         return this.question;
     }

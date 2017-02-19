@@ -17,6 +17,10 @@ public class Topic {
         this.collection = collection;
     }
 
+    public Topic() {
+
+    }
+
     public String getTitle() {
         return this.title;
     }
@@ -31,5 +35,21 @@ public class Topic {
 
     public Question[] getCollection() {
         return this.collection;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setShortDescription(String desc) {
+        this.shortDescription = desc;
+    }
+
+    public void setLongDescription(String desc) {
+        this.longDescription = desc;
+    }
+
+    public void setCollection(Question[] q) {
+        this.collection = q;
     }
 }
