@@ -1,9 +1,18 @@
 package edu.washington.jesusm14.quizdroid;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+
+import android.os.Build;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -22,6 +31,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
+import android.os.Handler;
 
 /**
  * Created by Jesus Moreno on 2/12/2017.
@@ -37,6 +47,8 @@ public class TopicRepository {
         protected String doInBackground(String... params) {
             try {
                 url = new URL(QuizApp.getUrl());
+                Toast.makeText(QuizApp.getContext(), url.toString(),
+                        Toast.LENGTH_LONG).show();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return e.toString();
@@ -78,7 +90,8 @@ public class TopicRepository {
         protected void onPreExecute() {
             super.onPreExecute();
             pd = new ProgressDialog(QuizApp.getContext());
-            pd.setMessage("Loading Data...");
+
+            pd.setMessage("JSON File Download being attempted...");
             pd.setCancelable(false);
             pd.show();
         }
@@ -123,6 +136,74 @@ public class TopicRepository {
                 Toast.makeText(QuizApp.getContext(), e.toString(), Toast.LENGTH_LONG).show();
             }
 
+        }
+
+        public void callAsynchronousTask() {
+            final Handler handler = new Handler();
+            Timer timer = new Timer();
+            TimerTask doAsynchronousTask = new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(new Runnable() {
+                        public void run() {
+                            try {
+                                ConnectivityManager cm =
+                                        (ConnectivityManager)QuizApp.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                                boolean isConnected = activeNetwork != null &&
+                                        activeNetwork.isConnectedOrConnecting();
+                                if(!isConnected) {
+                                    if(isAirplaneModeOn(QuizApp.getContext())) {
+                                        AlertDialog.Builder dialog = new AlertDialog.Builder(QuizApp.getContext());
+                                        dialog.setMessage("Would you like to go to settings to turn off airplane mode?");
+                                        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent dialogIntent = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
+                                                dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                QuizApp.getContext().startActivity(dialogIntent);
+                                            }
+                                        });
+                                        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                                        AlertDialog alert = dialog.create();
+                                        alert.show();
+                                    } else {
+                                        Toast.makeText(QuizApp.getContext(), "You are not connected to the internet!",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    MyAsyncTask performBackgroundTask = new MyAsyncTask();
+                                    performBackgroundTask.execute("");
+                                }
+
+                            } catch (Exception e) {
+                                // TODO Auto-generated catch block
+                            }
+                        }
+                    });
+                }
+            };
+            timer.schedule(doAsynchronousTask, 0, 60000 * QuizApp.getInterval()); //execute in every 50000 ms
+        }
+
+        @SuppressWarnings("deprecation")
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+        public boolean isAirplaneModeOn(Context context) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                return Settings.System.getInt(context.getContentResolver(),
+                        Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+            } else {
+                return Settings.Global.getInt(context.getContentResolver(),
+                        Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+            }
         }
 
     }

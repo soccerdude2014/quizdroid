@@ -50,12 +50,12 @@ public class QuizApp extends Application {
         return interval;
     }
 
-    public static void setInterval(int interval) {
-        interval = interval;
+    public static void setInterval(int giveninterval) {
+        interval = giveninterval;
     }
 
     public static String getUrl() {
-        return "http://tednewardsandbox.site44.com/questions.json";
+        return url;
     }
 
     public static void setUrl(String givenUrl) {

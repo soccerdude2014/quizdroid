@@ -31,7 +31,7 @@ public class Preferences extends Activity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-                // Fires right before text is changing
+                app.setUrl(urlText.getText().toString());
             }
 
             @Override
@@ -49,7 +49,7 @@ public class Preferences extends Activity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-                // Fires right before text is changing
+                app.setInterval(Integer.parseInt(intervalText.getText().toString()));
             }
 
             @Override
