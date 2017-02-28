@@ -39,16 +39,16 @@ import android.os.Handler;
 
 public class TopicRepository {
 
-    private class MyAsyncTask extends AsyncTask<String, String, String> {
+    public static class MyAsyncTask extends AsyncTask<String, String, String> {
         private ProgressDialog pd;
         private HttpURLConnection connection;
         private URL url;
         @Override
         protected String doInBackground(String... params) {
             try {
-                url = new URL(QuizApp.getUrl());
-                Toast.makeText(QuizApp.getContext(), url.toString(),
-                        Toast.LENGTH_LONG).show();
+                url = new URL("http://tednewardsandbox.site44.com/questions.json");
+               // Toast.makeText(QuizApp.getContext(), url.toString(),
+                 //       Toast.LENGTH_LONG).show();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return e.toString();
@@ -89,22 +89,24 @@ public class TopicRepository {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = new ProgressDialog(QuizApp.getContext());
+           // pd = new ProgressDialog(QuizApp.getContext());
 
-            pd.setMessage("JSON File Download being attempted...");
-            pd.setCancelable(false);
-            pd.show();
+            //pd.setMessage("JSON File Download being attempted...");
+            //pd.setCancelable(true);
+            //pd.show();
         }
 
         @Override
         protected void onPostExecute(String result) {
-            if(pd.isShowing()) {
-                pd.dismiss();
-            }
+         //   if(pd.isShowing()) {
+         //       pd.dismiss();
+         //   }
             try {
 
                 JSONArray json = new JSONArray(result);
-
+                if(!topicList.isEmpty()) {
+                    topicList.clear();
+                }
                 for(int i = 0; i < json.length(); i++) {
                     JSONObject jdata = json.getJSONObject(i);
                     Topic topic = new Topic();
@@ -164,6 +166,7 @@ public class TopicRepository {
                                                 Intent dialogIntent = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
                                                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 QuizApp.getContext().startActivity(dialogIntent);
+                                                //pd.dismiss();
                                             }
                                         });
                                         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -180,6 +183,7 @@ public class TopicRepository {
                                                 Toast.LENGTH_LONG).show();
                                     }
                                 } else {
+
                                     MyAsyncTask performBackgroundTask = new MyAsyncTask();
                                     performBackgroundTask.execute("");
                                 }
@@ -215,79 +219,16 @@ public class TopicRepository {
     }
 
     public TopicRepository () {
-        new MyAsyncTask().execute("");
+        MyAsyncTask start = new MyAsyncTask();
+        start.execute();
+        QuizApp.setInterval(1);
+        QuizApp.setUrl("http://tednewardsandbox.site44.com/questions.json");
+        start.callAsynchronousTask();
     }
 
 
-    /*
-    private String[] mathQuestions = new String[]{
-        "What is 2 + 2?", "What is the derivative of 5x?"
-    };
 
-    private String[][] mathAnswers = new String[][]{
-        {"22", "-4", "4", "5"}, {"5", "5x^2", "x^5", "5x"}
-    };
-
-    private int[] mathCorrectAnswers = new int[] {
-      2, 0
-    };
-
-    private String[] physicsQuestions = new String[]{
-        "What is force equal to?"
-    };
-
-    private String[][] physicsAnswers = new String[][]{
-        {"mc^2", "m*a", "K", "Distance * time"}
-    };
-
-    private int[] physicsCorrectAnswers = new int[]{
-        1
-    };
-
-    private String[] marvelQuestions = new String[]{
-        "Who is not a hero in the Avengers?"
-    };
-    private String[][] marvelAnswers = new String[][]{
-        {"Iron Man", "Batman", "Captain America", "Hulk"}
-    };
-
-    private int[] marvelCorrectAnswers = new int[]{
-        1
-    };
-
-    private String[] soccerQuestions = new String[]{
-        "Which country won the 2014 FIFA World Cup?"
-    };
-
-    private String[][] soccerAnswers = new String[][]{
-        {"Brazil", "Argentina", "United States", "Germany"}
-    };
-
-    private int[] soccerCorrectAnswers = new int[]{
-        3
-    };
-
-    private String[] topics = new String[]{
-      "Math", "Physics", "Marvel Super Heros", "Soccer"
-    };
-
-
-
-    private Topic mathTopics = new Topic("Math", "Math Short Description", "Math Long Description", new Question[] {
-            new Question(mathQuestions[0], mathAnswers[0], mathCorrectAnswers[0]),
-            new Question(mathQuestions[1], mathAnswers[1], mathCorrectAnswers[1])
-    });
-    private Topic physics = new Topic("Physics", "Physics Short Description", "Physics Long Description", new Question[] {
-            new Question("What is Force equal to?", physicsAnswers[0], physicsCorrectAnswers[0])
-    });
-    private Topic marvel = new Topic("Marvel Super Heros", "Marvel Super Heros Short Description", "Marvel Super Heros Long Description", new Question[] {
-            new Question("Who is NOT in the Avengers?", marvelAnswers[0], marvelCorrectAnswers[0])
-    } );
-    private Topic soccer = new Topic("Soccer", "Soccer Short Description", "Soccer Long Description", new Question[] {
-            new Question("Which country won the 2014 FIFA World Cup?", soccerAnswers[0], soccerCorrectAnswers[0])
-    } );
-    */
-    private List<Topic> topicList = new ArrayList<Topic>();
+    private static List<Topic> topicList = new ArrayList<Topic>();
 
 
 

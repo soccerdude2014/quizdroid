@@ -31,13 +31,12 @@ public class Preferences extends Activity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-                app.setUrl(urlText.getText().toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Fires right after the text has changed
-                app.setUrl(urlText.getText().toString());
+                if(s.toString().trim().length()==0){return;}
+                else{app.setUrl(urlText.getText().toString());}
             }
         });
         intervalText.addTextChangedListener(new TextWatcher() {
@@ -49,13 +48,12 @@ public class Preferences extends Activity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-                app.setInterval(Integer.parseInt(intervalText.getText().toString()));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Fires right after the text has changed
-                app.setInterval(Integer.parseInt(intervalText.getText().toString()));
+                if(s.toString().trim().length()==0){return;}
+                else{app.setInterval(Integer.parseInt(intervalText.getText().toString()));}
             }
         });
 
@@ -63,6 +61,10 @@ public class Preferences extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Preferences.this, MainActivity.class);
+                app.setInterval(Integer.parseInt(intervalText.getText().toString()));
+                app.setUrl(urlText.getText().toString());
+                TopicRepository.MyAsyncTask task = new TopicRepository.MyAsyncTask();
+                task.callAsynchronousTask();
                 startActivity(i);
             }
         });

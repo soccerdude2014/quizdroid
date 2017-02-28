@@ -15,6 +15,7 @@ public class QuizApp extends Application {
     private static Context contextInstance;
     private static int interval;
     private static String url;
+    private static boolean firstRun;
     public static QuizApp getQuizApp() {
         return instance;
     }
